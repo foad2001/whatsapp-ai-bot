@@ -32,9 +32,13 @@ client.on('loading_screen', (percent, message) => {
     console.log('LOADING SCREEN', percent, message);
 });
 
-client.on('qr', (qr) => {
+const QRCode = require('qrcode');
+
+client.on('qr', async (qr) => {
     console.log('QR RECEIVED');
-    qrcode.generate(qr, { small: true });
+
+    const url = await QRCode.toDataURL(qr);
+    console.log(url);
 });
 
 client.on('code', (code) => {
